@@ -1,5 +1,4 @@
 import pygame
-
 pygame.init()
 
 #lista de cores que será utilizado no jogo
@@ -12,8 +11,8 @@ cores = {
 
 clock = pygame.time.Clock()
 
-tela = pygame.display.set_mode((800,500)) #Cria a janela do jogo, e seu tamanho tbm
-pygame.display.set_caption("FREEWAY") #Nome do jogo
+tela = pygame.display.set_mode((800,500)) #Cria a tela, e o tamanho da janela do jogo
+pygame.display.set_caption("FREEWAY") #Título do jogo
 tela.fill(cores["AZUL CIANO"]) #Cor da tela
 
 tiocris = pygame.image.load("src/img/tiocris.png") #Carregando imagens
@@ -27,11 +26,12 @@ posiç_tiocris_x = 300
 posiç_tiocris_y = 200
 posiç_messi_x = 400
 posiç_messi_y = 200
+velocidade_messi_x = 90
 
 while True: 
     lista_eventos = pygame.event.get() #Pego todos os eventos que aconteceu na janela
     for evento in lista_eventos: #Percorro todos os eventos para encontrar aquele que eu quiser
-        if evento.type == pygame.QUIT:
+        if evento.type == pygame.QUIT: # X para fechar o programa
             pygame.quit()
             exit()
 
@@ -41,10 +41,10 @@ while True:
     tela.blit(tiocris,(posiç_tiocris_x,posiç_tiocris_y)) #Inserindo o tio cris na tela
     
     ###TIO CRIS###
-    #DIREITA
     #Verifica o pressionamento da tecla / Fazendo ela andar só quando pressionado
     tecla_presionada = pygame.key.get_pressed() #Inserir apenas uma vez, se não dá erro!
 
+    #DIREITA
     if tecla_presionada [pygame.K_RIGHT]:
         if posiç_tiocris_x < 800 - tiocris.get_width():  #700
             posiç_tiocris_x += 50 #Faz andar para direita
@@ -65,29 +65,11 @@ while True:
             posiç_tiocris_y += 50 #Faz andar para baixo
     
     ###MESSI###
-    #DIREITA
-    if tecla_presionada [pygame.K_d]:
-        if posiç_messi_x < 800 - messi.get_width():  #700  #######
-            posiç_messi_x += 50 #Faz andar para direita
-    
-    #ESQUERDA
-    if tecla_presionada [pygame.K_a]:
-        if posiç_messi_x > 0:
-            posiç_messi_x -= 50 #Faz andar para esquerda
-
-    #CIMA
-    if tecla_presionada [pygame.K_w]:
-        if posiç_messi_y > 0:
-            posiç_messi_y -= 50 #Faz andar para cima
-
-    #BAIXO
-    if tecla_presionada [pygame.K_s]:
-        if posiç_messi_y < 500 - messi.get_width(): 
-            posiç_messi_y += 50 #Faz andar para baixo
-
-
-#Fazer o messi andar sozinho left para right e vice versa
-
+    #Fazer o messi andar sozinho left para right e vice versa
+    if 1 == 1:
+        posiç_messi_x += velocidade_messi_x
+        if posiç_messi_x >= 800 - messi.get_height() or posiç_messi_x <= 0:
+            velocidade_messi_x = -velocidade_messi_x #Ele muda o lado
 
     pygame.display.update() #Atualiza a tela
 
