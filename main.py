@@ -16,8 +16,6 @@ tela = pygame.display.set_mode((800,500)) #Cria a tela, e o tamanho da janela do
 pygame.display.set_caption("FREEWAY") #Título do jogo
 tela.fill(cores["AZUL CIANO"]) #Cor da tela
 
-tiocris = pygame.image.load("src/img/tiocris.png") #Carregando imagens
-tiocris = pygame.transform.scale_by(tiocris,(0.2)) 
 campo = pygame.image.load("src/img/campofut.webp")
 campo = pygame.transform.scale(campo,(800,500))
 
@@ -29,9 +27,6 @@ lista_inimigos = [Inimigo("src/img/mininoney.png"),
                   Inimigo("src/img/mininoney.png"),
                   Inimigo("src/img/Messi-correndo-removebg-preview.png"),]
 
-
-posiç_tiocris_x = 300
-posiç_tiocris_y = 200
 
 while True: 
     lista_eventos = pygame.event.get() #Pego todos os eventos que aconteceu na janela
@@ -51,30 +46,8 @@ while True:
         inimigo.exibir(tela)
 
 
-    ###TIO CRIS###
     #Verifica o pressionamento da tecla / Fazendo ela andar só quando pressionado
     tecla_presionada = pygame.key.get_pressed() #Inserir apenas uma vez, se não dá erro!
-
-    #DIREITA
-    if tecla_presionada [pygame.K_RIGHT]:
-        if posiç_tiocris_x < 800 - tiocris.get_width():  #700
-            posiç_tiocris_x += 50 #Faz andar para direita
-    
-    #ESQUERDA CERTO
-    if tecla_presionada [pygame.K_LEFT]:
-        if posiç_tiocris_x > 0:
-            posiç_tiocris_x -= 50 #Faz andar para esquerda
-
-    #CIMA CERTO
-    if tecla_presionada [pygame.K_UP]:
-        if posiç_tiocris_y > 0:
-            posiç_tiocris_y -= 50 #Faz andar para cima
-
-    #BAIXO
-    if tecla_presionada [pygame.K_DOWN]:
-        if posiç_tiocris_y < 500 - tiocris.get_width(): 
-            posiç_tiocris_y += 50 #Faz andar para baixo
-
 
     pygame.display.update() #Atualiza a tela
     clock.tick(60)

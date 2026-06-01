@@ -3,7 +3,7 @@ import random
 
 class Inimigo: 
 
-    def __init__(self, endereco_imagem):  # Atributos do rival, Messi
+    def __init__(self, endereco_imagem):  # Atributos do rival
         # Carregando imagens
         self.imagem = pygame.image.load(endereco_imagem)  
         self.imagem = pygame.transform.scale_by(self.imagem, 0.3)
