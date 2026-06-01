@@ -1,5 +1,6 @@
 import pygame
 pygame.init()
+from classe_inimigo import Inimigo
 
 #lista de cores que será utilizado no jogo
 cores = {                   
@@ -16,17 +17,21 @@ pygame.display.set_caption("FREEWAY") #Título do jogo
 tela.fill(cores["AZUL CIANO"]) #Cor da tela
 
 tiocris = pygame.image.load("src/img/tiocris.png") #Carregando imagens
-tiocris = pygame.transform.scale_by(tiocris,(0.3)) 
+tiocris = pygame.transform.scale_by(tiocris,(0.2)) 
 campo = pygame.image.load("src/img/campofut.webp")
 campo = pygame.transform.scale(campo,(800,500))
-messi = pygame.image.load("src/img/Messi-correndo-removebg-preview.png")
-messi = pygame.transform.scale_by(messi,(0.3)) 
+
+#criando uma lista de inimigos
+lista_inimigos = [Inimigo("src/img/mininoney.png"),
+                  Inimigo("src/img/Messi-correndo-removebg-preview.png"),
+                  Inimigo("src/img/mininoney.png"),
+                  Inimigo("src/img/Messi-correndo-removebg-preview.png"),
+                  Inimigo("src/img/mininoney.png"),
+                  Inimigo("src/img/Messi-correndo-removebg-preview.png"),]
+
 
 posiç_tiocris_x = 300
 posiç_tiocris_y = 200
-posiç_messi_x = 400
-posiç_messi_y = 200
-velocidade_messi_x = 90
 
 while True: 
     lista_eventos = pygame.event.get() #Pego todos os eventos que aconteceu na janela
@@ -37,9 +42,15 @@ while True:
 
     tela.fill(cores["AZUL CIANO"])
     tela.blit(campo,(0,0)) #Inserindo o campo na tela
-    tela.blit(messi,(posiç_messi_x,posiç_messi_y)) #Inserindo o rival messi na tela
+
     tela.blit(tiocris,(posiç_tiocris_x,posiç_tiocris_y)) #Inserindo o tio cris na tela
-    
+
+    #Inserindo inimigos na tela
+    for inimigo in lista_inimigos:
+        inimigo.andar()
+        inimigo.exibir(tela)
+
+
     ###TIO CRIS###
     #Verifica o pressionamento da tecla / Fazendo ela andar só quando pressionado
     tecla_presionada = pygame.key.get_pressed() #Inserir apenas uma vez, se não dá erro!
@@ -63,14 +74,7 @@ while True:
     if tecla_presionada [pygame.K_DOWN]:
         if posiç_tiocris_y < 500 - tiocris.get_width(): 
             posiç_tiocris_y += 50 #Faz andar para baixo
-    
-    ###MESSI###
-    #Fazer o messi andar sozinho left para right e vice versa
-    if 1 == 1:
-        posiç_messi_x += velocidade_messi_x
-        if posiç_messi_x >= 800 - messi.get_height() or posiç_messi_x <= 0:
-            velocidade_messi_x = -velocidade_messi_x #Ele muda o lado
+
 
     pygame.display.update() #Atualiza a tela
-
-    clock.tick(8)
+    clock.tick(60)
