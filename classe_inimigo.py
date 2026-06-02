@@ -3,15 +3,18 @@ import random
 
 class Inimigo: 
 
-    def __init__(self, endereco_imagem):  # Atributos do rival
+    def __init__(self, endereco_imagem):  # Atributos do rival - tem self na frente
         # Carregando imagens
         self.imagem = pygame.image.load(endereco_imagem)  
-        self.imagem = pygame.transform.scale_by(self.imagem, 0.3)
+        self.imagem = pygame.transform.scale_by(self.imagem, 0.2)
 
         # Definindo posições e a velocidade
         self.x = 400  
-        self.y = random.randint(20, 400)
-        self.velocidade_x = random.randint(5,30)
+        self.y = random.randint(30, 370)
+        self.velocidade_x = random.randint(5,20)
+
+        #máscara para verificar a colisão
+        self.mascara = pygame.mask.from_surface(self.imagem)
         
     def andar(self):
         # O Messi anda sempre para a frente
@@ -27,3 +30,4 @@ class Inimigo:
         self.x = 0
         self.y = random.randint(20, 300)
         self.velocidade_x = random.randint(10,30)
+

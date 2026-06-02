@@ -1,6 +1,7 @@
 import pygame
 pygame.init()
 from classe_inimigo import Inimigo
+from classe_jogador import Jogador
 
 #lista de cores que será utilizado no jogo
 cores = {                   
@@ -18,36 +19,64 @@ tela.fill(cores["AZUL CIANO"]) #Cor da tela
 
 campo = pygame.image.load("src/img/campofut.webp")
 campo = pygame.transform.scale(campo,(800,500))
+fundo = pygame.image.load("src/img/iniciar.png")
+fundo = pygame.transform.scale(fundo,(800,500))
+perdeu = pygame.image.load("src/img/game_over.png")
+perdeu = pygame.transform.scale(fundo,(800,500))
 
 #criando uma lista de inimigos
 lista_inimigos = [Inimigo("src/img/mininoney.png"),
                   Inimigo("src/img/Messi-correndo-removebg-preview.png"),
-                  Inimigo("src/img/mininoney.png"),
-                  Inimigo("src/img/Messi-correndo-removebg-preview.png"),
-                  Inimigo("src/img/mininoney.png"),
-                  Inimigo("src/img/Messi-correndo-removebg-preview.png"),]
+                  Inimigo("src/img/mininoney.png")]
 
+#criando o jogador
+cr7 = Jogador()
 
-while True: 
+status_jogo = "INICIAR"
+
+while True:
+
     lista_eventos = pygame.event.get() #Pego todos os eventos que aconteceu na janela
     for evento in lista_eventos: #Percorro todos os eventos para encontrar aquele que eu quiser
         if evento.type == pygame.QUIT: # X para fechar o programa
             pygame.quit()
             exit()
 
-    tela.fill(cores["AZUL CIANO"])
-    tela.blit(campo,(0,0)) #Inserindo o campo na tela
-
-    tela.blit(tiocris,(posiç_tiocris_x,posiç_tiocris_y)) #Inserindo o tio cris na tela
-
-    #Inserindo inimigos na tela
-    for inimigo in lista_inimigos:
-        inimigo.andar()
-        inimigo.exibir(tela)
-
-
     #Verifica o pressionamento da tecla / Fazendo ela andar só quando pressionado
-    tecla_presionada = pygame.key.get_pressed() #Inserir apenas uma vez, se não dá erro!
+    teclas_pressionadas = pygame.key.get_pressed() #Inserir apenas uma vez, se não dá erro!
+
+    if status_jogo == "INICIO":
+        #Inserindo o fundo inicial na tela
+        tela.blit(fundo,(0,0))
+        if teclas_pressionadas[pygame.K_RETURN] or teclas_pressionadas[pygame.K_KP_ENTER]:
+            status_jogo = "JOGANDO"
+
+    if status_jogo == "JOGANDO":
+        #Inserindo o campo na tela
+        tela.blit(campo,(0,0)) 
+
+        #Inserindo o jogador na tela
+        cr7.andar(teclas_pressionadas)
+        cr7.exibir(tela)
+        
+        #Inserindo inimigos na tela
+        for inimigo in lista_inimigos:
+            inimigo.andar()
+            inimigo.exibir(tela)
+            
+            #testando se o inimigo colidiu com a vaca
+            if cr7.mascara.overlap(inimigo.mascara,(inimigo.x-cr7.pos_x,inimigo.y-cr7.pos_y)):
+                inimigo.voltar()
+                cr7.voltar()  
+
+    if status_jogo == "PERDEU":
+        tela.blit(perdeu,(0,0))
+
+        pygame.init()
+        pygame.mixer.init()
+        # Carrega e toca o arquivo
+        pygame.mixer.music.load('src/sound/PERDEUHAHA.mp3')
+        pygame.mixer.music.play()
 
     pygame.display.update() #Atualiza a tela
     clock.tick(60)
