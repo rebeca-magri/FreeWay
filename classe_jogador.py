@@ -6,7 +6,6 @@ class Jogador:
         self.imagem = pygame.image.load("src/img/tiocris.png") 
         self.imagem = pygame.transform.scale_by(self.imagem,(0.1))
 
-
         self.pos_x = 300
         self.pos_y = 0
 
@@ -48,3 +47,5 @@ class Jogador:
         # Carrega e toca o arquivo
         pygame.mixer.music.load('src/sound/suuuurcr7.mp3')
         pygame.mixer.music.play()
+        
+        

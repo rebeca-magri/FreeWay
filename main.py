@@ -22,7 +22,7 @@ campo = pygame.transform.scale(campo,(800,500))
 fundo = pygame.image.load("src/img/iniciar.png")
 fundo = pygame.transform.scale(fundo,(800,500))
 perdeu = pygame.image.load("src/img/game_over.png")
-perdeu = pygame.transform.scale(fundo,(800,500))
+perdeu = pygame.transform.scale(perdeu,(800,500))
 
 #criando uma lista de inimigos
 lista_inimigos = [Inimigo("src/img/mininoney.png"),
@@ -32,7 +32,7 @@ lista_inimigos = [Inimigo("src/img/mininoney.png"),
 #criando o jogador
 cr7 = Jogador()
 
-status_jogo = "INICIAR"
+status_jogo = "INICIO"
 
 while True:
 
@@ -67,16 +67,11 @@ while True:
             #testando se o inimigo colidiu com a vaca
             if cr7.mascara.overlap(inimigo.mascara,(inimigo.x-cr7.pos_x,inimigo.y-cr7.pos_y)):
                 inimigo.voltar()
-                cr7.voltar()  
+                cr7.voltar()
+                status_jogo = "PERDEU"
 
     if status_jogo == "PERDEU":
         tela.blit(perdeu,(0,0))
-
-        pygame.init()
-        pygame.mixer.init()
-        # Carrega e toca o arquivo
-        pygame.mixer.music.load('src/sound/PERDEUHAHA.mp3')
-        pygame.mixer.music.play()
 
     pygame.display.update() #Atualiza a tela
     clock.tick(60)
