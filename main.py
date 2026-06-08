@@ -23,6 +23,8 @@ fundo = pygame.image.load("src/img/iniciar.png")
 fundo = pygame.transform.scale(fundo,(800,500))
 perdeu = pygame.image.load("src/img/game_over.png")
 perdeu = pygame.transform.scale(perdeu,(800,500))
+venceu = pygame.image.load("src/img/venceuuutche.png")
+venceu = pygame.transform.scale(venceu,(800,500))
 
 #criando uma lista de inimigos
 lista_inimigos = [Inimigo("src/img/mininoney.png"),
@@ -59,6 +61,12 @@ while True:
         cr7.andar(teclas_pressionadas)
         cr7.exibir(tela)
         
+        fonte = pygame.font.SysFont("Calibri", 40, True, False)
+        texto = fonte.render(f"Vidas = " + ('<3' * cr7.vidas), True, (255,0,0), (255,255,255))
+        tela.blit(texto, (0,0))
+        if cr7.vidas == 3:
+            status_jogo = "VENCEU"
+
         #Inserindo inimigos na tela
         for inimigo in lista_inimigos:
             inimigo.andar()
@@ -72,6 +80,17 @@ while True:
 
     if status_jogo == "PERDEU":
         tela.blit(perdeu,(0,0))
+        if teclas_pressionadas[pygame.K_RETURN] or teclas_pressionadas[pygame.K_KP_ENTER]:
+            cr7.voltar()
+            status_jogo = "INICIO"
+            cr7.vidas = 0
+
+    if status_jogo == "VENCEU":
+        tela.blit(venceu,(0,0))
+        if teclas_pressionadas[pygame.K_RETURN] or teclas_pressionadas[pygame.K_KP_ENTER]:
+            cr7.voltar()
+            status_jogo = "INICIO"
+            cr7.vidas = 0
 
     pygame.display.update() #Atualiza a tela
     clock.tick(60)
