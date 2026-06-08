@@ -2,6 +2,7 @@ import pygame
 pygame.init()
 from classe_inimigo import Inimigo
 from classe_jogador import Jogador
+from caminho_relativo import resource_path
 
 #lista de cores que será utilizado no jogo
 cores = {                   
@@ -17,19 +18,19 @@ tela = pygame.display.set_mode((800,500)) #Cria a tela, e o tamanho da janela do
 pygame.display.set_caption("FREEWAY") #Título do jogo
 tela.fill(cores["AZUL CIANO"]) #Cor da tela
 
-campo = pygame.image.load("src/img/campofut.webp")
+campo = pygame.image.load(resource_path("src/img/campofut.webp"))
 campo = pygame.transform.scale(campo,(800,500))
-fundo = pygame.image.load("src/img/iniciar.png")
+fundo = pygame.image.load(resource_path("src/img/iniciar.png"))
 fundo = pygame.transform.scale(fundo,(800,500))
-perdeu = pygame.image.load("src/img/game_over.png")
+perdeu = pygame.image.load(resource_path("src/img/game_over.png"))
 perdeu = pygame.transform.scale(perdeu,(800,500))
-venceu = pygame.image.load("src/img/venceuuutche.png")
+venceu = pygame.image.load(resource_path("src/img/venceuuutche.png"))
 venceu = pygame.transform.scale(venceu,(800,500))
 
 #criando uma lista de inimigos
-lista_inimigos = [Inimigo("src/img/mininoney.png"),
-                  Inimigo("src/img/Messi-correndo-removebg-preview.png"),
-                  Inimigo("src/img/mininoney.png")]
+lista_inimigos = [Inimigo(resource_path("src/img/mininoney.png")),
+                  Inimigo(resource_path("src/img/Messi-correndo-removebg-preview.png")),
+                  Inimigo(resource_path("src/img/mininoney.png"))]
 
 #criando o jogador
 cr7 = Jogador()

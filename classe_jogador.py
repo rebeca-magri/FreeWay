@@ -1,9 +1,10 @@
 import pygame
+from caminho_relativo import resource_path
 
 class Jogador:
     def __init__ (self): # Atributos do jogador
         #Carregando imagens
-        self.imagem = pygame.image.load("src/img/tiocris.png") 
+        self.imagem = pygame.image.load(resource_path("src/img/tiocris.png"))
         self.imagem = pygame.transform.scale_by(self.imagem,(0.1))
 
         self.pos_x = 300
@@ -51,5 +52,5 @@ class Jogador:
         pygame.mixer.init()
 
         # Carrega e toca o arquivo
-        pygame.mixer.music.load('src/sound/suuuurcr7.mp3')
+        pygame.mixer.music.load(resource_path('src/sound/suuuurcr7.mp3'))
         pygame.mixer.music.play()
