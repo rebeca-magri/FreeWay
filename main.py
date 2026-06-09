@@ -37,13 +37,13 @@ cr7 = Jogador()
 
 status_jogo = "INICIO"
 
-while True:
+rodando = True
 
+while rodando:
     lista_eventos = pygame.event.get() #Pego todos os eventos que aconteceu na janela
     for evento in lista_eventos: #Percorro todos os eventos para encontrar aquele que eu quiser
         if evento.type == pygame.QUIT: # X para fechar o programa
-            pygame.quit()
-            exit()
+            rodando = False
 
     #Verifica o pressionamento da tecla / Fazendo ela andar só quando pressionado
     teclas_pressionadas = pygame.key.get_pressed() #Inserir apenas uma vez, se não dá erro!
